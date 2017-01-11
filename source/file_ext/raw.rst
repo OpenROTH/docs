@@ -6,8 +6,8 @@ There is two types of RAW file:
 1) The one stored in the folder :file:`DATA/` and named :file:`BACKDROP.RAW`
 2) Other stored in the folder :file:`M/` (:file:`DAUSO1EA.RAW`, :file:`DSTUDY1.RAW`, ...)
 
-DATA/*.RAW
-----------
+DATA/\*.RAW
+-----------
 
 Header
 ^^^^^^
@@ -74,5 +74,5 @@ Image result:
 
     Palette used is the one from :ref:`HERE <HERE-label>`
 
-M/*.RAW
--------
+M/\*.RAW
+--------
