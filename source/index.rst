@@ -14,6 +14,7 @@ Welcome to OpenROTH's documentation!
 
     file_ext.rst
     annex.rst
+    rle.rst
 
 .. Indices and tables
 .. ==================
