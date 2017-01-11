@@ -5,7 +5,7 @@ Sound dialog.
 
 Kind of modified WAVE.
 
-Each entry is normally accessed by an offset that can be found in the file :file:`DBASE100.DAT`.
+Each entry is normally accessed by an offset that can be found in the file :file:`DBASE400.DAT` (Offset found in this file must be multiplied by 8).
 
 .. note::
 
@@ -83,7 +83,22 @@ Example
     0075ccdc
 
 WAV output:
-    
+
+.. warning::
+
+    HTML5 <audio> tag is used
+
 .. raw:: html
 
     <audio controls="controls"><source src="../_static/entry_65_dbase500_demo.wav" type="audio/x-wav" /></audio>
+
+Dbase400 associated info:
+
+.. code-block:: text
+
+    > md5sum /tmp/DBASE400.DAT
+    465eee4100d3cafb2662c966029b34f5 DBASE400.DAT
+    > hexdump -C -s 9532 -n 100 DBASE400.DAT
+    0000253c  8f b9 0e 00 1b 00 d7 00  44 61 6d 6e 2e 20 50 6f  |........Damn. Po|
+    0000254c  77 65 72 27 73 20 6f 66  66 20 69 6e 20 68 65 72  |wer's off in her|
+    0000255c  65 2e 00 00 10 cf 0e 00  22 00 d7 00 54 68 69 73  |e......."...This|
