@@ -1,6 +1,91 @@
 ALL
 ===
 
+This type of file contains icons.
+
+.. note::
+
+   Byte ordering is little endian
+
+File format
+-----------
+
+.. image:: ../_static/all_format.png
+    :alt: all format
+
+Header
+^^^^^^
+
+There is no header, it's directly the entry table.
+
+.. code-block:: text
+
+    +0x00          EntryTable
+
+Entries Table
+^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    +0x00           Offset              [DWORD]
+    +0x04           Length              [DWORD]         // Must a multiple of 4
+
+Entry
+"""""
+
+.. code-block:: text
+
+    +0x00 :     IMG_TYPE        [WORD]
+    +0x02 :     UNK_WORD_00     [WORD]
+    +0x04 :     HEIGHT          [WORD]
+    +0x06 :     WIDTH           [WORD]
+    +0x0A :     DATA            [BYTE] * (Length - 0x08)
+
+If :class:`IMG_TYPE` is equal to 0x03 then the data are encoded using :ref:`RLE <rle-label>`.
+
+The data are raw 8 bit palletized image.
+
+Example
+^^^^^^^
+
+The file :file:`ICONS.ALL` is from the DEMO version.
+
+.. code-block:: text
+
+    > md5sum ICONS.ALL
+    91c4c33339cc0661be9568d79ead8911  ICONS.ALL
+    > hexdump -C -n 100 ICONS.ALL
+    00000000  d0 03 00 00 66 00 00 00  38 04 00 00 53 01 00 00  |....f...8...S...|
+    00000010  8c 05 00 00 f0 1a 00 00  7c 20 00 00 1d 01 00 00  |........| ......|
+    00000020  9c 21 00 00 cb 01 00 00  68 23 00 00 06 01 00 00  |.!......h#......|
+    00000030  70 24 00 00 f4 00 00 00  64 25 00 00 0c 01 00 00  |p$......d%......|
+    00000040  70 26 00 00 01 01 00 00  74 27 00 00 23 01 00 00  |p&......t'..#...|
+    00000050  98 28 00 00 e5 00 00 00  80 29 00 00 01 01 00 00  |.(.......)......|
+    00000060  84 2a 00 00                                       |.*..|
+
+Entry 00:
+
+* Offset : 0x000003D0 (976)
+* Length : 0x00000066 (102)
+
+.. code-block:: text
+
+    > hexdump -C -n 100 -s 976 ICONS.ALL
+    000003d0  03 00 01 01 0a 00 0e 00  f2 01 f8 00 01 73 01 f7  |.............s..|
+    000003e0  00 01 64 73 01 f6 00 01  64 62 73 01 f5 00 01 64  |..ds....dbs....d|
+    000003f0  f2 62 73 01 f4 00 01 64  f3 62 73 01 f3 00 01 64  |.bs....d.bs....d|
+    00000400  f4 62 73 01 f2 00 01 64  62 f3 64 62 73 01 00 01  |.bs....db.dbs...|
+    00000410  f2 64 71 73 71 64 62 73  01 00 f8 01 00 f4 00 01  |.dqsqdbs........|
+    00000420  71 01 f3 00 f5 00 f3 01  f2 00 f5 00 01 62 01 f2  |q............b..|
+    00000430  00 f6 00 01                                       |....|
+    
+* IMG_TYPE = 0x0003
+* UNK_WORD_00 = 0x0101
+* HEIGHT = 0x000A (10)
+* WIDTH = 0x000E (14)
+
+Entry 0x78:
+
 .. code-block:: python
 
     import all_parser
